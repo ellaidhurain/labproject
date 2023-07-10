@@ -189,7 +189,7 @@ DATABASES = {
         'NAME': 'bccpdb',
         'USER': 'user',
         'PASSWORD': '98DYRVxJJFyKZ9NpOnQPGJ9wTNd58HFt',
-        'HOST':'postgres://user:98DYRVxJJFyKZ9NpOnQPGJ9wTNd58HFt@dpg-cim3hmmnqqlfm4fs3amg-a.singapore-postgres.render.com/bccpdb',
+        'HOST':'postgres://user:98DYRVxJJFyKZ9NpOnQPGJ9wTNd58HFt@dpg-cim3hmmnqqlfm4fs3amg-a.singapore-postgres.render.com',
         'PORT': '5432',
     }
 }
