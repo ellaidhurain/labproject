@@ -39,16 +39,16 @@ class SupplierForm(models.Model):
     product_image = models.FileField(upload_to='products/',blank=False,validators=[FileExtensionValidator(['pdf', 'jpg', 'jpeg','webp','png'])])
     certificate_image = models.FileField(upload_to='certificates/',blank=False,validators=[FileExtensionValidator(['pdf', 'jpg', 'jpeg','webp','png'])])
     
-    accredation_image =  models.FileField(upload_to='certificates/',blank=False,validators=[FileExtensionValidator(['pdf', 'jpg', 'jpeg','webp','png'])])
+    accreditation_image =  models.FileField(upload_to='certificates/',blank=False,validators=[FileExtensionValidator(['pdf', 'jpg', 'jpeg','webp','png'])])
     agency_name = models.CharField(max_length=100, blank=False)
-    accredetion_id = models.CharField(max_length=100, blank=False)
-    ACCREDATION_AGENCY_CHOICES = (
+    accreditation_id = models.CharField(max_length=100, blank=False)
+    ACCREDITATION_AGENCY_CHOICES = (
         ('startupindia','startupindia'),
         ('asme','asme'),
     ),
     
-    accredation_name=models.CharField(max_length=100,choices=ACCREDATION_AGENCY_CHOICES, blank=False),
-    acceredation_active_status = models.BooleanField(max_length=10, default=False)
+    accreditation_name=models.CharField(max_length=100,choices=ACCREDITATION_AGENCY_CHOICES, blank=False),
+    accreditation_active_status = models.BooleanField(max_length=10, default=False)
     
     # these two field is verified by lab 
     test_result_image = models.FileField(upload_to='result/',blank=True,validators=[FileExtensionValidator(['pdf', 'jpg', 'jpeg','webp','png'])])
