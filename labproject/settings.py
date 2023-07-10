@@ -161,19 +161,32 @@ AUTHENTICATION_BACKENDS = (
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'postgres',
+#         'USER': 'postgres',
+#         'PASSWORD': 'admin',
+#         'HOST':'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
+        'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': 'admin',
-        'HOST':'localhost',
-        'PORT': '5432',
+        'PASSWORD': 'IwKSjfgAUaqAVaLENHEH',
+        'HOST':'containers-us-west-182.railway.app',
+        'PORT': '7594',
     }
 }
+
 
 # if you use custom User model you should include this in settings.
 # don't migrate at first migration without this. 
 AUTH_USER_MODEL = "lab.User" 
 
 BASE_URL = "http://127.0.0.1:8000"
+# BASE_URL = "https://labproject.vercel.app"
