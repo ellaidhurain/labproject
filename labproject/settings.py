@@ -172,6 +172,17 @@ CORS_ORIGIN_ALLOW_ALL = True
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'railway',
+#         'USER': 'postgres',
+#         'PASSWORD': 'IwKSjfgAUaqAVaLENHEH',
+#         'HOST':'containers-us-west-182.railway.app',
+#         'PORT': '7594',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -182,6 +193,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
 
 
 # if you use custom User model you should include this in settings.
