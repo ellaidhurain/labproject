@@ -15,8 +15,8 @@ SECRET_KEY = 'django-insecure-m)^nwvoc*)wj=o=bh95eu0e0ni=)kntcn*uvcgwus_lvv&z()o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ['.vercel.app','.now.sh','127.0.0.1','localhost']
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['.vercel.app','.now.sh','127.0.0.1','localhost']
 
 
 # Application definition
@@ -175,11 +175,11 @@ CORS_ORIGIN_ALLOW_ALL = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'IwKSjfgAUaqAVaLENHEH',
-        'HOST':'containers-us-west-182.railway.app',
-        'PORT': '7594',
+        'NAME': 'bccpdb',
+        'USER': 'user',
+        'PASSWORD': '98DYRVxJJFyKZ9NpOnQPGJ9wTNd58HFt',
+        'HOST':'postgres://user:98DYRVxJJFyKZ9NpOnQPGJ9wTNd58HFt@dpg-cim3hmmnqqlfm4fs3amg-a.singapore-postgres.render.com/bccpdb',
+        'PORT': '5432',
     }
 }
 
