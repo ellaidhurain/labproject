@@ -48,7 +48,7 @@ class SupplierForm(models.Model):
     ),
     
     accredation_name=models.CharField(max_length=100,choices=ACCREDATION_AGENCY_CHOICES, blank=False),
-    acceredation_active_status = models.BooleanField(max_length=10)
+    acceredation_active_status = models.BooleanField(max_length=10, default=False)
     
     # these two field is verified by lab 
     test_result_image = models.FileField(upload_to='result/',blank=True,validators=[FileExtensionValidator(['pdf', 'jpg', 'jpeg','webp','png'])])
