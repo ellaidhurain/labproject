@@ -188,5 +188,5 @@ DATABASES = {
 # don't migrate at first migration without this. 
 AUTH_USER_MODEL = "lab.User" 
 
-BASE_URL = "http://127.0.0.1:8000"
+BASE_URL = "http://0.0.0.0:10000"
 # BASE_URL = "https://labproject.vercel.app"
