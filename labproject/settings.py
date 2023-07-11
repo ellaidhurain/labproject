@@ -30,7 +30,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "lab",
     "rest_framework",
-    "rest_framework_simplejwt",
+    "rest_framework.authtoken",
+    "rest_framework_simplejwt.token_blacklist",
+    # "rest_framework_simplejwt",
     "corsheaders",
 ]
 
@@ -137,8 +139,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.SessionAuthentication",
+        # "rest_framework.authentication.SessionAuthentication",
         # 'rest_framework.authentication.TokenAuthentication',
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
         # Other authentication classes if needed...
     ],
     "DEFAULT_PERMISSION_CLASSES": [
@@ -147,7 +151,14 @@ REST_FRAMEWORK = {
     ],
 }
 
-AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=100),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+}
+
+# AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
 
 
 # CORS_ALLOWED_ORIGINS = [
@@ -181,14 +192,13 @@ CORS_ORIGIN_ALLOW_ALL = True
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "bccpdb",
+        "NAME": "bccpdb_0uy0",
         "USER": "user",
-        "PASSWORD": "98DYRVxJJFyKZ9NpOnQPGJ9wTNd58HFt",
-        "HOST": "dpg-cim3hmmnqqlfm4fs3amg-a.singapore-postgres.render.com",
+        "PASSWORD": "mvGH1obzLx545oc3Yqda6DjWtWLR0q3o",
+        "HOST": "dpg-cimg9jdgkuvgvhfqup50-a.singapore-postgres.render.com",
         "PORT": "5432",
     }
 }
-       
 
 
 # if you use custom User model you should include this in settings.
