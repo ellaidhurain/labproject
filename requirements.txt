@@ -9,4 +9,4 @@ PyJWT
 pytz
 sqlparse
 tzdata
-
+gunicorn
