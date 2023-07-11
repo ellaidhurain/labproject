@@ -244,14 +244,14 @@ def get_verified_forms(request):
 
 @permission_classes((IsAuthenticated,))
 @api_view(["PUT"])
-def customer_verification(request, lab_id, supplier_id):
+def customer_verification(request, id):
     try:
-        form = SupplierForm.objects.get(laboratory=lab_id, supplier=supplier_id)
+        form = SupplierForm.objects.get(id=id)
         is_verified_buyer = request.data["verified_buyer"]
         if is_verified_buyer == "True":
-            form.verified_buyer = False
-        else:
             form.verified_buyer = True
+        else:
+            form.verified_buyer = False
 
         form.save()
         serializer = SupplierFormSerializer(form, context={"request": request})
