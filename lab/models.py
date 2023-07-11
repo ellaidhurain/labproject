@@ -36,7 +36,7 @@ class Laboratory(models.Model):
 
 # each SupplierForm will have a foreign key relationship with the corresponding Laboratory object. You can retrieve all the supplier forms associated with a specific laboratory by querying the SupplierForm
 class SupplierForm(models.Model):
-    supplier = models.OneToOneField(Supplier, on_delete=models.CASCADE)
+    supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
     laboratory = models.ForeignKey(
         Laboratory, on_delete=models.CASCADE, null=True
     )  # one lab can have many supplier
