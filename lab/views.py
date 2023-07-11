@@ -58,12 +58,12 @@ def login_user(request):
     # .
     # token = {"refresh": str(refresh_token), "access": access_token}
     
-     # Set the CSRF token as a cookie
-    csrf_token = get_token(request)
-    response.set_cookie("csrftoken", csrf_token)
 
     # create response object
     response = Response({"message":"Login Success"},status=status.HTTP_200_OK)
+      # Set the CSRF token as a cookie
+    csrf_token = get_token(request)
+    response.set_cookie("csrftoken", csrf_token)
     response['Authorization'] = f'Bearer {access_token}'
     response['Refresh-Token'] = str(refresh_token)
     return response
