@@ -272,3 +272,18 @@ def customer_verification(request, id):
         return Response(response_data, status=status.HTTP_200_OK)
     except SupplierForm.DoesNotExist:
         return Response({"error": "Form not found."}, status=status.HTTP_404_NOT_FOUND)
+
+
+@permission_classes((IsAuthenticated,))
+# @user_type_required(allowed_user_types=["C"])
+@api_view(["GET"])
+def get_user_type(request):
+    try:
+        user = request.user
+        print(user.user_type)
+        data = {
+            "user_type": user.user_type,
+        }
+        return Response(data, status=200)
+    except:
+        return Response(status=400)
