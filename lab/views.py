@@ -247,7 +247,12 @@ def get_verified_forms(request):
 def customer_verification(request, lab_id, supplier_id):
     try:
         form = SupplierForm.objects.get(laboratory=lab_id, supplier=supplier_id)
-        form.verified_buyer = True
+        is_verified_buyer = request.data["verified_buyer"]
+        if is_verified_buyer == "True":
+            form.verified_buyer = False
+        else:
+            form.verified_buyer = True
+
         form.save()
         serializer = SupplierFormSerializer(form, context={"request": request})
         response_data = {
