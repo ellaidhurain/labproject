@@ -29,5 +29,9 @@ urlpatterns = [
         update_form_status,
         name="update_form_status",
     ),
-    path("customer_verification/<int:lab_id>/<int:supplier_id>", customer_verification, name="customer_verification"),
+    path(
+        "customer_verification/<int:id>",
+        customer_verification,
+        name="customer_verification",
+    ),
 ]
