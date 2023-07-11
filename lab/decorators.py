@@ -1,15 +1,10 @@
 from functools import wraps
 from django.conf import settings
-from rest_framework.exceptions import AuthenticationFailed
-from rest_framework import generics, status
-from rest_framework.response import Response
+from rest_framework import status
 from django.http import JsonResponse
-from rest_framework.renderers import JSONRenderer
-from datetime import datetime
 import jwt
-from django.conf import settings
 from .models import User
-from functools import wraps 
+
 
 def func_token_required(view_func):
     @wraps(view_func)
@@ -24,7 +19,9 @@ def func_token_required(view_func):
 
         token = auth_header[1]
         if not token:
-            return JsonResponse({"error": "Token not found."}, status=status.HTTP_404_NOT_FOUND)
+            return JsonResponse(
+                {"error": "Token not found."}, status=status.HTTP_404_NOT_FOUND
+            )
 
         try:
             # Decode the JWT token
@@ -32,25 +29,37 @@ def func_token_required(view_func):
             user_id = payload["user"]["id"]
             request.user = User.objects.get(id=user_id)
         except jwt.ExpiredSignatureError:
-            return JsonResponse({"error": "Token has expired."}, status=status.HTTP_401_UNAUTHORIZED)
+            return JsonResponse(
+                {"error": "Token has expired."}, status=status.HTTP_401_UNAUTHORIZED
+            )
         except (jwt.DecodeError, jwt.InvalidTokenError):
-            return JsonResponse({"error": "Invalid token."}, status=status.HTTP_401_UNAUTHORIZED)
+            return JsonResponse(
+                {"error": "Invalid token."}, status=status.HTTP_401_UNAUTHORIZED
+            )
         except User.DoesNotExist:
-            return JsonResponse({"error": "User not found."}, status=status.HTTP_404_NOT_FOUND)
+            return JsonResponse(
+                {"error": "User not found."}, status=status.HTTP_404_NOT_FOUND
+            )
 
         return view_func(request, *args, **kwargs)
 
     return decorator
+
 
 def user_type_required(allowed_user_types=[]):
     def decorator(view_func):
         @wraps(view_func)
         def wrapper(request, *args, **kwargs):
             if not request.user.is_authenticated:
-                return JsonResponse({"error": "Authentication required."}, status=status.HTTP_401_UNAUTHORIZED)
+                return JsonResponse(
+                    {"error": "Authentication required."},
+                    status=status.HTTP_401_UNAUTHORIZED,
+                )
 
             if request.user.user_type not in allowed_user_types:
-                return JsonResponse({"error": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+                return JsonResponse(
+                    {"error": "Permission denied."}, status=status.HTTP_403_FORBIDDEN
+                )
 
             return view_func(request, *args, **kwargs)
 
