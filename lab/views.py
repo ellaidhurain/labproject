@@ -185,7 +185,7 @@ def get_lab_forms(request, lab_id):
 
 # this will updated by lab
 # @func_token_required
-# @permission_classes((IsAuthenticated, ))
+@permission_classes((IsAuthenticated,))
 # @user_type_required(allowed_user_types=["L"])
 @api_view(["PUT"])
 def update_form_status(request, lab_id, supplier_id):
@@ -240,3 +240,30 @@ def get_verified_forms(request):
         return Response(serializer.data, status=200)
     except:
         return Response(status=400)
+
+
+@permission_classes((IsAuthenticated,))
+@api_view(["PUT"])
+def customer_verification(request, lab_id, supplier_id):
+    try:
+        form = SupplierForm.objects.get(laboratory=lab_id, supplier=supplier_id)
+        form.verified_buyer = True
+        form.save()
+        serializer = SupplierFormSerializer(form, context={"request": request})
+        response_data = {
+            "id": serializer.data["id"],
+            "supplier": serializer.data["supplier"],
+            "laboratory": serializer.data["supplier"],
+            "sub_name": serializer.data["sub_name"],
+            "sub_address": serializer.data["sub_address"],
+            "product_name": serializer.data["product_name"],
+            "sub_proof": serializer.data["sub_proof_url"],
+            "product_image": serializer.data["product_image_url"],
+            "certificate_image": serializer.data["certificate_image_url"],
+            "test_result_image": serializer.data["test_result_image_url"],
+            "status": serializer.data["status"],
+            "verified_buyer": serializer.data["verified_buyer"],
+        }
+        return Response(response_data, status=status.HTTP_200_OK)
+    except SupplierForm.DoesNotExist:
+        return Response({"error": "Form not found."}, status=status.HTTP_404_NOT_FOUND)

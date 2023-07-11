@@ -80,7 +80,7 @@ class SupplierForm(models.Model):
             max_length=100, choices=ACCREDITATION_AGENCY_CHOICES, blank=False
         ),
     )
-    accreditation_active_status = models.BooleanField(max_length=10, default=False)
+    accreditation_active_status = models.BooleanField(default=False)
 
     # these two field is verified by lab
     test_result_image = models.FileField(
@@ -94,3 +94,5 @@ class SupplierForm(models.Model):
         ("R", "Rejected"),
     )
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="Pending")
+
+    verified_buyer = models.BooleanField(default=False)
