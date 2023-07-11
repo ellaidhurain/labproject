@@ -38,8 +38,7 @@ class SupplierForm(models.Model):
     product_name = models.CharField(max_length=100,blank=False,)
     product_image = models.FileField(upload_to='products/',blank=False,validators=[FileExtensionValidator(['pdf', 'jpg', 'jpeg','webp','png'])])
     certificate_image = models.FileField(upload_to='certificates/',blank=False,validators=[FileExtensionValidator(['pdf', 'jpg', 'jpeg','webp','png'])])
-    
-    accreditation_image =  models.FileField(upload_to='certificates/',blank=False,validators=[FileExtensionValidator(['pdf', 'jpg', 'jpeg','webp','png'])])
+    accreditation_image =  models.FileField(upload_to='accreditation/',blank=False,validators=[FileExtensionValidator(['pdf', 'jpg', 'jpeg','webp','png'])])
     agency_name = models.CharField(max_length=100, blank=False)
     accreditation_id = models.CharField(max_length=100, blank=False)
     ACCREDITATION_AGENCY_CHOICES = (

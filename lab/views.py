@@ -19,7 +19,7 @@ from datetime import datetime, timedelta
 import jwt
 from django.conf import settings
 from .decorators import *
-
+from django.middleware.csrf import get_token
 
 @api_view(['POST'])
 def create_user(request):
@@ -57,6 +57,10 @@ def login_user(request):
     refresh_token = RefreshToken.for_user(user)
     # .
     # token = {"refresh": str(refresh_token), "access": access_token}
+    
+     # Set the CSRF token as a cookie
+    csrf_token = get_token(request)
+    response.set_cookie("csrftoken", csrf_token)
 
     # create response object
     response = Response({"message":"Login Success"},status=status.HTTP_200_OK)

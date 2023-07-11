@@ -36,6 +36,7 @@ class SupplierFormSerializer(serializers.ModelSerializer):
     sub_proof_url = serializers.SerializerMethodField()
     product_image_url = serializers.SerializerMethodField()
     certificate_image_url = serializers.SerializerMethodField()
+    accreditation_image_url = serializers.SerializerMethodField()
     test_result_image_url = serializers.SerializerMethodField()
    
     class Meta:
@@ -55,6 +56,11 @@ class SupplierFormSerializer(serializers.ModelSerializer):
     def get_certificate_image_url(self, obj):
         if obj.certificate_image:
             return self._get_full_url(obj.certificate_image.url)
+        return None
+    
+    def get_accreditation_image_url(self, obj):
+        if obj.certificate_image:
+            return self._get_full_url(obj.accreditation_image.url)
         return None
         
     def get_test_result_image_url(self, obj):
