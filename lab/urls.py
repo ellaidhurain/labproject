@@ -26,7 +26,7 @@ urlpatterns = [
     path("get_verified_forms", get_verified_forms, name="get_verified_forms"),
     path("get_lab_forms/<int:lab_id>", get_lab_forms, name="get_lab_forms"),
     path(
-        "update_form_status/<int:lab_id>/<int:supplier_id>",
+        "update_form_status/<int:id>",
         update_form_status,
         name="update_form_status",
     ),

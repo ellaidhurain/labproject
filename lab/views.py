@@ -189,9 +189,9 @@ def get_lab_forms(request, lab_id):
 @permission_classes((IsAuthenticated,))
 # @user_type_required(allowed_user_types=["L"])
 @api_view(["PUT"])
-def update_form_status(request, lab_id, supplier_id):
+def update_form_status(request, id):
     try:
-        form = SupplierForm.objects.get(laboratory=lab_id, supplier=supplier_id)
+        form = SupplierForm.objects.get(id=id)
 
         if form.status == "Verified":
             return Response(
