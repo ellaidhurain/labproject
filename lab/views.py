@@ -121,13 +121,14 @@ def get_laboratory(request):
 # @user_type_required(allowed_user_types=["S"])
 @api_view(["POST"])
 def send_supplier_form(request):
+    request.data["supplier"] = request.user.id
     serializer = SupplierFormSerializer(data=request.data, context={"request": request})
     if serializer.is_valid():
         serializer.save()
         response_data = {
             "id": serializer.data["id"],
             "supplier": serializer.data["supplier"],
-            "laboratory": serializer.data["supplier"],
+            "laboratory": serializer.data["laboratory"],
             "sub_name": serializer.data["sub_name"],
             "sub_address": serializer.data["sub_address"],
             "product_name": serializer.data["product_name"],
@@ -280,7 +281,6 @@ def customer_verification(request, id):
 def get_user_type(request):
     try:
         user = request.user
-        print(user.user_type)
         data = {
             "user_type": user.user_type,
         }
