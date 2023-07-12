@@ -148,12 +148,9 @@ def send_supplier_form(request):
 @permission_classes((IsAuthenticated,))
 # @user_type_required(allowed_user_types=["L"])
 @api_view(["GET"])
-def get_lab_forms(request, lab_id):
-    if not lab_id:
-        return Response({"error": "Missing 'id' parameter."}, status=400)
-
+def get_lab_forms(request):
     try:
-        lab = Laboratory.objects.get(id=lab_id)  # find lab id
+        lab = Laboratory.objects.get(user=request.user)  # find lab id
         forms = SupplierForm.objects.filter(
             laboratory=lab, status="Pending"
         )  # get all forms sent to that lab_id
