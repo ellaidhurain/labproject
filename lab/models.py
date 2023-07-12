@@ -40,6 +40,9 @@ class SupplierForm(models.Model):
     laboratory = models.ForeignKey(
         Laboratory, on_delete=models.CASCADE, null=True
     )  # one lab can have many supplier
+    customer = models.ForeignKey(
+        Customer, blank=True, null=True, on_delete=models.CASCADE
+    )
     sub_name = models.CharField(max_length=100, blank=False)
     sub_address = models.CharField(max_length=100, blank=False)
     sub_proof = models.FileField(
@@ -74,14 +77,12 @@ class SupplierForm(models.Model):
             ("asme", "asme"),
         ),
     )
-
     accreditation_name = (
         models.CharField(
             max_length=100, choices=ACCREDITATION_AGENCY_CHOICES, blank=False
         ),
     )
     accreditation_active_status = models.BooleanField(default=False)
-
     # these two field is verified by lab
     test_result_image = models.FileField(
         upload_to="result/",
@@ -94,5 +95,4 @@ class SupplierForm(models.Model):
         ("R", "Rejected"),
     )
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="Pending")
-
     verified_buyer = models.BooleanField(default=False)
