@@ -11,6 +11,7 @@ from .views import (
     get_verified_forms,
     customer_verification,
     get_user_type,
+    get_verified_buyer,
 )
 from rest_framework_simplejwt import views as jwt_views
 
@@ -36,4 +37,5 @@ urlpatterns = [
         name="customer_verification",
     ),
     path("get_user_type", get_user_type, name="get_user_type"),
+    path("get_verified_buyer", get_verified_buyer, name="get_verified_buyer"),
 ]

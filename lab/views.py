@@ -243,11 +243,13 @@ def get_verified_forms(request):
 @permission_classes((IsAuthenticated,))
 @api_view(["PUT"])
 def customer_verification(request, id):
+    user = Customer.objects.get(user=request.user)
     try:
         form = SupplierForm.objects.get(id=id)
         is_verified_buyer = request.data["verified_buyer"]
         if is_verified_buyer == "True":
             form.verified_buyer = True
+            form.customer = user
         else:
             form.verified_buyer = False
 
@@ -282,5 +284,19 @@ def get_user_type(request):
             "user_type": user.user_type,
         }
         return Response(data, status=200)
+    except:
+        return Response(status=400)
+
+
+@permission_classes((IsAuthenticated,))
+# @user_type_required(allowed_user_types=["C"])
+@api_view(["GET"])
+def get_verified_buyer(request):
+    try:
+        verified_buyer = SupplierForm.objects.filter(verified_buyer=True)
+        if not verified_buyer:
+            return Response([], status=200)
+        serializer = SupplierFormSerializer(verified_buyer, many=True)
+        return Response(serializer.data, status=200)
     except:
         return Response(status=400)
