@@ -78,24 +78,30 @@ class SupplierFormSerializer(serializers.ModelSerializer):
     
     def get_customer(self, obj):
         customer = obj.customer
-        return {
-            "id": customer.id,
-            "username": customer.username,  
-        }
-    
+        if customer:
+            return {
+                "id": customer.id,
+                "username": customer.username,
+            }
+        return None
+
     def get_laboratory(self, obj):
         laboratory = obj.laboratory
-        return {
-            "id": laboratory.id,
-            "username": laboratory.username,  
-        }
-        
+        if laboratory:
+            return {
+                "id": laboratory.id,
+                "username": laboratory.username,
+            }
+        return None
+
     def get_supplier(self, obj):
         supplier = obj.supplier
-        return {
-            "id": supplier.id,
-            "username": supplier.username,  
-        }
+        if supplier:
+            return {
+                "id": supplier.id,
+                "username": supplier.username,
+            }
+        return None
         
 class SupplierSerializer(serializers.ModelSerializer):
     class Meta:
