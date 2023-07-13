@@ -205,5 +205,5 @@ DATABASES = {
 # don't migrate at first migration without this.
 AUTH_USER_MODEL = "lab.User"
 
-BASE_URL = "http://0.0.0.0:10000"
+BASE_URL = "https://bccp.onrender.com/"
 # BASE_URL = "https://labproject.vercel.app"
