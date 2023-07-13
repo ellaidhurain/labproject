@@ -299,5 +299,8 @@ def get_verified_buyer(request):
             return Response([], status=200)
         serializer = SupplierFormSerializer(verified_buyer, many=True)
         return Response(serializer.data, status=200)
-    except:
-        return Response(status=400)
+    except SupplierForm.DoesNotExist:
+        return Response({"error": "No verified buyer forms found."}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
