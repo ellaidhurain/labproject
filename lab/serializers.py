@@ -38,6 +38,7 @@ class SupplierFormSerializer(serializers.ModelSerializer):
     certificate_image_url = serializers.SerializerMethodField()
     accreditation_image_url = serializers.SerializerMethodField()
     test_result_image_url = serializers.SerializerMethodField()
+    customer = serializers.SerializerMethodField()
    
     class Meta:
         model = SupplierForm
@@ -72,6 +73,13 @@ class SupplierFormSerializer(serializers.ModelSerializer):
         if not relative_url.startswith('http'):
             return f"{settings.BASE_URL.rstrip('/')}{relative_url}"
         return relative_url
+    
+    def get_customer(self, obj):
+        customer = obj.customer
+        return {
+            "id": customer.id,
+            "username": customer.username,  
+        }
         
 class SupplierSerializer(serializers.ModelSerializer):
     class Meta:

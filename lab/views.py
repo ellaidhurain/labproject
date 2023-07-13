@@ -292,7 +292,7 @@ def get_user_type(request):
 # @user_type_required(allowed_user_types=["C"])
 @api_view(["GET"])
 def get_verified_buyer(request):
-    supplier = Supplier.objects.get(user=request.user)
+    supplier = Supplier.objects.get(user=request.user) # get pk of supplier. 
     try:
         verified_buyer = SupplierForm.objects.filter(
             supplier=supplier, verified_buyer=True
