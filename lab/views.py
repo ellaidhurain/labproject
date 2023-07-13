@@ -20,6 +20,8 @@ from datetime import datetime, timedelta
 import jwt
 from django.conf import settings
 from django.middleware.csrf import get_token
+from scrapper_asme import asme_active
+from scrapper_si import si_active
 
 
 @api_view(["POST"])
@@ -123,6 +125,19 @@ def get_laboratory(request):
 def send_supplier_form(request):
     supplier = Supplier.objects.get(user=request.user)
     request.data["supplier"] = f"{supplier.id}"
+
+    accreditation_name = request.data["accreditation_name"]
+    accreditation_active_status = "False"
+    agency_name = request.data["agency_name"]
+
+    if accreditation_name == "asme":
+        accreditation_active_status = asme_active(agency_name)
+    elif accreditation_name == "startupindia":
+        accreditation_active_status = "True"
+    else:
+        accreditation_active_status = "False"
+
+    request.data["accreditation_active_status"] = accreditation_active_status
     serializer = SupplierFormSerializer(data=request.data, context={"request": request})
     if serializer.is_valid():
         serializer.save()
@@ -174,6 +189,9 @@ def get_lab_forms(request):
                 "certificate_image": form_data["certificate_image_url"],
                 "test_result_image": form_data["test_result_image_url"],
                 "status": form_data["status"],
+                "agency_name": form_data["agency_name"],
+                "accreditation_active_status": form_data["accreditation_active_status"],
+                "accreditation_name": form_data["accreditation_name"],
             }
             response_data.append(form)
 

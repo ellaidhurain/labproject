@@ -11,3 +11,5 @@ sqlparse
 tzdata
 gunicorn
 django-storages[azure]
+selenium
+bs4
