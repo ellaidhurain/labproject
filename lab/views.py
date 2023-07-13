@@ -209,7 +209,7 @@ def update_form_status(request, id):
             response_data = {
                 "id": serializer.data["id"],
                 "supplier": serializer.data["supplier"],
-                "laboratory": serializer.data["supplier"],
+                "laboratory": serializer.data["laboratory"],
                 "sub_name": serializer.data["sub_name"],
                 "sub_address": serializer.data["sub_address"],
                 "product_name": serializer.data["product_name"],
@@ -292,8 +292,9 @@ def get_user_type(request):
 # @user_type_required(allowed_user_types=["C"])
 @api_view(["GET"])
 def get_verified_buyer(request):
+    supplier = request.user
     try:
-        verified_buyer = SupplierForm.objects.filter(verified_buyer=True)
+        verified_buyer = SupplierForm.objects.filter(supplier=supplier,verified_buyer=True)
         if not verified_buyer:
             return Response([], status=200)
         serializer = SupplierFormSerializer(verified_buyer, many=True)
