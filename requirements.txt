@@ -10,3 +10,4 @@ pytz
 sqlparse
 tzdata
 gunicorn
+django-storages[azure]

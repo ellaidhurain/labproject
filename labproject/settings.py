@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt.token_blacklist",
     # "rest_framework_simplejwt",
     "corsheaders",
+    "storages",
 ]
 
 MIDDLEWARE = [
@@ -108,18 +109,6 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
-
-STATIC_URL = "staticfiles_build/"
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "staticfiles_build")]
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles_build", "static")
-
-
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
 # email link setup
@@ -205,5 +194,25 @@ DATABASES = {
 # don't migrate at first migration without this.
 AUTH_USER_MODEL = "lab.User"
 
-BASE_URL = "https://bccp.onrender.com/"
-# BASE_URL = "https://labproject.vercel.app"
+
+DEFAULT_FILE_STORAGE = "custom_azure.AzureMediaStorage"
+STATICFILES_STORAGE = "custom_azure.AzureStaticStorage"
+
+STATIC_LOCATION = "static"
+MEDIA_LOCATION = "media"
+
+AZURE_ACCOUNT_NAME = os.environ["accountName"]
+AZURE_CUSTOM_DOMAIN = f"{AZURE_ACCOUNT_NAME}.blob.core.windows.net"
+STATIC_URL = f"https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/"
+MEDIA_URL = f"https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/"
+
+
+BASE_URL = MEDIA_URL
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/4.1/howto/static-files/
+
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "staticfiles_build")]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles_build", "static")
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
