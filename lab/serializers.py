@@ -39,6 +39,8 @@ class SupplierFormSerializer(serializers.ModelSerializer):
     accreditation_image_url = serializers.SerializerMethodField()
     test_result_image_url = serializers.SerializerMethodField()
     customer = serializers.SerializerMethodField()
+    laboratory = serializers.SerializerMethodField()
+    supplier = serializers.SerializerMethodField()
    
     class Meta:
         model = SupplierForm
@@ -79,6 +81,20 @@ class SupplierFormSerializer(serializers.ModelSerializer):
         return {
             "id": customer.id,
             "username": customer.username,  
+        }
+    
+    def get_laboratory(self, obj):
+        laboratory = obj.laboratory
+        return {
+            "id": laboratory.id,
+            "username": laboratory.username,  
+        }
+        
+    def get_supplier(self, obj):
+        supplier = obj.supplier
+        return {
+            "id": supplier.id,
+            "username": supplier.username,  
         }
         
 class SupplierSerializer(serializers.ModelSerializer):
