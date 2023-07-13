@@ -23,15 +23,33 @@ class UserSerializer(serializers.ModelSerializer):
         )
 
         if user_type == "S":  # Supplier user
-            supplier = Supplier.objects.create(user=user)
+            Supplier.objects.create(user=user)
 
-        if user_type == "C":  # Supplier user
-            supplier = Customer.objects.create(user=user)
+        if user_type == "C":  # Customer user
+            Customer.objects.create(user=user)
 
-        if user_type == "L":  # Supplier user
-            supplier = Laboratory.objects.create(user=user)
+        if user_type == "L":  # Laboratory user
+            Laboratory.objects.create(user=user)
 
         return user
+
+
+class SupplierSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Supplier
+        fields = "__all__"
+
+
+class LaboratoryFormSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Laboratory
+        fields = "__all__"
+
+
+class CustomerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+        fields = "__all__"
 
 
 class SupplierFormSerializer(serializers.ModelSerializer):
@@ -105,20 +123,13 @@ class SupplierFormSerializer(serializers.ModelSerializer):
             }
         return None
 
+    def create(self, validated_data):
+        supplier = self.context["request"].data.get("supplier")
+        laboratory = self.context["request"].data.get("laboratory")
+        supplier = Supplier.objects.get(id=supplier)
+        laboratory = Laboratory.objects.get(id=laboratory)
 
-class SupplierSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Supplier
-        fields = "__all__"
+        return SupplierForm.objects.create(supplier=supplier, laboratory=laboratory, **validated_data)
 
-
-class LaboratoryFormSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Laboratory
-        fields = "__all__"
-
-
-class CustomerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Customer
-        fields = "__all__"
+    def validate(self, data):
+        return data

@@ -121,7 +121,8 @@ def get_laboratory(request):
 # @user_type_required(allowed_user_types=["S"])
 @api_view(["POST"])
 def send_supplier_form(request):
-    request.data["supplier"] = request.user.id
+    supplier = Supplier.objects.get(user=request.user)
+    request.data["supplier"] = f"{supplier.id}"
     serializer = SupplierFormSerializer(data=request.data, context={"request": request})
     if serializer.is_valid():
         serializer.save()
@@ -292,7 +293,7 @@ def get_user_type(request):
 # @user_type_required(allowed_user_types=["C"])
 @api_view(["GET"])
 def get_verified_buyer(request):
-    supplier = Supplier.objects.get(user=request.user) # get pk of supplier. 
+    supplier = Supplier.objects.get(user=request.user)  # get pk of supplier.
     try:
         verified_buyer = SupplierForm.objects.filter(
             supplier=supplier, verified_buyer=True
