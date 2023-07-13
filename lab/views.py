@@ -292,15 +292,19 @@ def get_user_type(request):
 # @user_type_required(allowed_user_types=["C"])
 @api_view(["GET"])
 def get_verified_buyer(request):
-    supplier = request.user
+    supplier = Supplier.objects.get(user=request.user)
     try:
-        verified_buyer = SupplierForm.objects.filter(supplier=supplier,verified_buyer=True)
+        verified_buyer = SupplierForm.objects.filter(
+            supplier=supplier, verified_buyer=True
+        )
         if not verified_buyer:
             return Response([], status=200)
         serializer = SupplierFormSerializer(verified_buyer, many=True)
         return Response(serializer.data, status=200)
     except SupplierForm.DoesNotExist:
-        return Response({"error": "No verified buyer forms found."}, status=status.HTTP_404_NOT_FOUND)
+        return Response(
+            {"error": "No verified buyer forms found."},
+            status=status.HTTP_404_NOT_FOUND,
+        )
     except Exception as e:
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
