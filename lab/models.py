@@ -72,16 +72,12 @@ class SupplierForm(models.Model):
     agency_name = models.CharField(max_length=100, blank=False)
     accreditation_id = models.CharField(max_length=100, blank=False)
     ACCREDITATION_AGENCY_CHOICES = (
-        (
             ("startupindia", "startupindia"),
             ("asme", "asme"),
-        ),
-    )
-    accreditation_name = (
-        models.CharField(
-            max_length=100, choices=ACCREDITATION_AGENCY_CHOICES, blank=False
-        ),
-    )
+        )
+    
+    accreditation_name = models.CharField(max_length=100, choices=ACCREDITATION_AGENCY_CHOICES, blank=False, default="asme")
+
     accreditation_active_status = models.BooleanField(default=False)
     # these two field is verified by lab
     test_result_image = models.FileField(
